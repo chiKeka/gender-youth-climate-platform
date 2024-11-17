@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, MapPin, Users, Clock } from 'lucide-react';
 import { useState } from 'react';
