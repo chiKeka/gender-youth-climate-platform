@@ -1,13 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { Calendar, BarChart2, Map, ClipboardCheck, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const navigate = useNavigate();
-
-  const handleNavigation = (path: string) => {
-    console.log('Navigating to:', path); // Debug log
-    navigate(path);
-  };
 
   const tiles = [
     {
@@ -49,6 +45,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
+      {/* Header */}
       <div className="max-w-7xl mx-auto mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Gender and Youth Climate Action Platform
@@ -58,19 +55,13 @@ const HomePage: React.FC = () => {
         </p>
       </div>
 
+      {/* Tiles Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {tiles.map((tile, index) => (
           <div 
             key={index}
-            onClick={() => handleNavigation(tile.path)}
-            className={`p-6 rounded-lg shadow-md ${tile.color} transition-all duration-300 transform hover:scale-105 cursor-pointer`}
-            role="button"
-            tabIndex={0}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleNavigation(tile.path);
-              }
-            }}
+            className={`p-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer ${tile.color}`}
+            onClick={() => navigate(tile.path)}
           >
             <div className="flex items-center justify-between mb-4">
               {tile.icon}
@@ -81,6 +72,7 @@ const HomePage: React.FC = () => {
         ))}
       </div>
 
+      {/* Footer */}
       <div className="max-w-7xl mx-auto mt-12 text-center text-gray-600">
         <p>© 2024 African Union Commission. All rights reserved.</p>
       </div>

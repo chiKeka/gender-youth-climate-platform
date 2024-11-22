@@ -40,3 +40,33 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Add these new styles for the chat bubble */
+.fixed {
+  position: fixed !important;
+}
+
+.z-50 {
+  z-index: 50 !important;
+}
+
+/* Override root max-width for full-width layout */
+#root {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Ensure the chat bubble container is visible */
+.chat-bubble-container {
+  position: fixed !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  z-index: 9999 !important;
+}
+
+/* Add styles for proper positioning */
+.relative {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+}

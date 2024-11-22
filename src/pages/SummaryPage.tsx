@@ -1,11 +1,14 @@
 import { ArrowLeft, Target, Users, Lightbulb, Book } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const SummaryPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Navigation */}
       <button 
-        onClick={() => window.location.href = '/'}
+        onClick={() => navigate('/')}
         className="flex items-center text-blue-600 mb-8 hover:text-blue-800"
       >
         <ArrowLeft className="w-4 h-4 mr-2" />

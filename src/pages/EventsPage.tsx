@@ -1,66 +1,124 @@
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, MapPin, Users, Clock } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-type EventType = {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  type: 'workshop' | 'conference' | 'training' | 'meeting';
-  category: 'women' | 'youth' | 'both';
-  participants: number;
-  description: string;
-  status: 'upcoming' | 'ongoing' | 'completed';
-};
 
 const EventsPage = () => {
   const navigate = useNavigate();
-  const [selectedType, setSelectedType] = useState<string>('all');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedType, setSelectedType] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const events: EventType[] = [
+  const events = [
     {
       id: 1,
-      title: "Climate Innovation Workshop",
-      date: "2024-12-01",
-      time: "09:00 - 16:00",
+      title: "Youth Climate Innovation Summit",
+      date: "2025-02-15",
+      time: "09:00 - 17:00",
       location: "Nairobi, Kenya",
-      type: "workshop",
+      type: "conference",
       category: "youth",
-      participants: 50,
-      description: "Hands-on workshop focusing on innovative climate solutions led by youth entrepreneurs.",
+      participants: 300,
+      description: "Annual summit showcasing youth-led climate innovations and sustainable solutions across Africa.",
       status: "upcoming"
     },
     {
       id: 2,
-      title: "Women in Renewable Energy Conference",
-      date: "2024-12-15",
-      time: "10:00 - 17:00",
+      title: "Women in Green Energy Workshop Series",
+      date: "2025-03-20",
+      time: "10:00 - 16:00",
       location: "Addis Ababa, Ethiopia",
-      type: "conference",
+      type: "workshop",
       category: "women",
-      participants: 200,
-      description: "Annual conference highlighting women's leadership in renewable energy sectors.",
+      participants: 150,
+      description: "Capacity building workshop focused on renewable energy entrepreneurship and leadership for women.",
       status: "upcoming"
     },
     {
       id: 3,
-      title: "Climate-Smart Agriculture Training",
-      date: "2024-12-20",
+      title: "Climate-Smart Agriculture Training Camp",
+      date: "2025-04-10",
       time: "08:30 - 15:30",
       location: "Kampala, Uganda",
       type: "training",
       category: "both",
-      participants: 75,
-      description: "Practical training on sustainable farming practices and climate resilience.",
+      participants: 200,
+      description: "Five-day intensive training on sustainable farming practices and climate resilience strategies.",
+      status: "upcoming"
+    },
+    {
+      id: 4,
+      title: "Gender and Climate Finance Forum",
+      date: "2025-05-25",
+      time: "09:30 - 16:30",
+      location: "Kigali, Rwanda",
+      type: "conference",
+      category: "women",
+      participants: 250,
+      description: "Strategic forum on accessing climate finance and implementing gender-responsive climate projects.",
+      status: "upcoming"
+    },
+    {
+      id: 5,
+      title: "Youth Green Tech Hackathon",
+      date: "2025-06-15",
+      time: "09:00 - 18:00",
+      location: "Dar es Salaam, Tanzania",
+      type: "workshop",
+      category: "youth",
+      participants: 180,
+      description: "48-hour hackathon for young innovators developing tech solutions for climate challenges.",
+      status: "upcoming"
+    },
+    {
+      id: 6,
+      title: "Regional Climate Action Leadership Program",
+      date: "2025-07-05",
+      time: "10:00 - 16:00",
+      location: "Lusaka, Zambia",
+      type: "training",
+      category: "both",
+      participants: 120,
+      description: "Three-month leadership program for emerging climate leaders from across Eastern Africa.",
+      status: "upcoming"
+    },
+    {
+      id: 7,
+      title: "Women's Climate Entrepreneurship Summit",
+      date: "2025-08-20",
+      time: "09:00 - 17:00",
+      location: "Johannesburg, South Africa",
+      type: "conference",
+      category: "women",
+      participants: 400,
+      description: "Summit connecting women entrepreneurs with investors and partners in climate action sectors.",
+      status: "upcoming"
+    },
+    {
+      id: 8,
+      title: "Youth Climate Policy Workshop",
+      date: "2025-09-10",
+      time: "10:00 - 15:00",
+      location: "Nairobi, Kenya",
+      type: "workshop",
+      category: "youth",
+      participants: 150,
+      description: "Interactive workshop on climate policy advocacy and youth participation in decision-making.",
+      status: "upcoming"
+    },
+    {
+      id: 9,
+      title: "Gender-Responsive Climate Action Training",
+      date: "2025-10-15",
+      time: "09:30 - 16:30",
+      location: "Addis Ababa, Ethiopia",
+      type: "training",
+      category: "both",
+      participants: 200,
+      description: "Comprehensive training on mainstreaming gender considerations in climate projects.",
       status: "upcoming"
     }
   ];
 
-  const typeOptions = ['all', 'workshop', 'conference', 'training', 'meeting'];
+  const typeOptions = ['all', 'workshop', 'conference', 'training'];
   const categoryOptions = ['all', 'women', 'youth', 'both'];
 
   const getStatusColor = (status: string) => {
@@ -76,26 +134,10 @@ const EventsPage = () => {
     }
   };
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'women':
-        return '👩';
-      case 'youth':
-        return '👥';
-      case 'both':
-        return '👥👩';
-      default:
-        return '👥';
-    }
-  };
-
   const filteredEvents = events.filter(event => {
     const matchesType = selectedType === 'all' || event.type === selectedType;
     const matchesCategory = selectedCategory === 'all' || event.category === selectedCategory;
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.location.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesType && matchesCategory && matchesSearch;
+    return matchesType && matchesCategory;
   });
 
   return (
@@ -114,10 +156,10 @@ const EventsPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Upcoming Events
+              2025 Events Calendar
             </h1>
             <p className="text-gray-600">
-              Calendar of key activities and programs
+              Upcoming activities and programs for gender and youth climate action
             </p>
           </div>
           <Calendar className="w-8 h-8 text-blue-600" />
@@ -127,15 +169,6 @@ const EventsPage = () => {
       {/* Filters */}
       <div className="max-w-7xl mx-auto mb-8 bg-white rounded-lg shadow-md p-6">
         <div className="flex flex-col md:flex-row md:items-center gap-4">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Search events..."
-              className="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
           <div className="flex gap-4">
             <select
               value={selectedType}
@@ -170,12 +203,8 @@ const EventsPage = () => {
             key={event.id} 
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
-            {/* Event Header */}
-            <div className="p-6 border-b border-gray-100">
-              <div className="flex items-start justify-between mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">{event.title}</h2>
-                <span className="text-2xl">{getCategoryIcon(event.category)}</span>
-              </div>
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">{event.title}</h2>
               <div className="space-y-2">
                 <div className="flex items-center text-gray-600">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -199,11 +228,7 @@ const EventsPage = () => {
                   <span>{event.participants} participants</span>
                 </div>
               </div>
-            </div>
-
-            {/* Event Body */}
-            <div className="p-6">
-              <p className="text-gray-600 mb-4">{event.description}</p>
+              <p className="text-gray-600 mt-4 mb-4">{event.description}</p>
               <div className="flex items-center justify-between">
                 <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(event.status)}`}>
                   {event.status.charAt(0).toUpperCase() + event.status.slice(1)}

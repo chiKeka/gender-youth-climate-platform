@@ -1,7 +1,9 @@
 import { ArrowLeft, InfoIcon, TrendingUp, TrendingDown } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ScorecardPage = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const scoringData = {
@@ -101,7 +103,7 @@ const ScorecardPage = () => {
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Navigation */}
       <button 
-        onClick={() => window.location.href = '/'}
+        onClick={() => navigate('/')}
         className="flex items-center text-blue-600 mb-8 hover:text-blue-800"
       >
         <ArrowLeft className="w-4 h-4 mr-2" />

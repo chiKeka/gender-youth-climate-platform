@@ -1,12 +1,14 @@
-import { ArrowLeft, Users, TrendingUp, TreePine, Wallet, Target, BarChart2, Globe2, UserCheck, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Users, Target, Wallet, GraduationCap } from 'lucide-react';
 import { 
   BarChart, Bar, LineChart, Line, RadarChart, Radar, PolarGrid,
   PolarAngleAxis, PolarRadiusAxis, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPage = () => {
+  const navigate = useNavigate();
   const [selectedTimeframe, setSelectedTimeframe] = useState('6M');
   const [selectedRegion, setSelectedRegion] = useState('All Regions');
 
@@ -90,7 +92,7 @@ const DashboardPage = () => {
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Navigation */}
       <button 
-        onClick={() => window.location.href = '/'}
+        onClick={() => navigate('/')}
         className="flex items-center text-blue-600 mb-8 hover:text-blue-800"
       >
         <ArrowLeft className="w-4 h-4 mr-2" />
@@ -226,12 +228,12 @@ const DashboardPage = () => {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }: { name: string; percent: number }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {projectDistribution.map((entry, index) => (
+                  {projectDistribution.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
